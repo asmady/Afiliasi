@@ -1,0 +1,168 @@
+:root {
+  --bg: #fdf8fb;
+  --card: #ffffff;
+  --text: #2b2027;
+  --muted: #8a7580;
+  --accent: #d6336c;
+  --accent-soft: #ffe3ec;
+  --border: #f0e2e9;
+  --gold: #b8860b;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.65;
+}
+
+.wrap { max-width: 1080px; margin: 0 auto; padding: 20px 16px 60px; }
+
+/* --- header --- */
+header.hero {
+  background: linear-gradient(135deg, #d6336c 0%, #c2255c 100%);
+  color: #fff;
+  padding: 40px 20px;
+  text-align: center;
+}
+header.hero h1 { margin: 0 0 8px; font-size: 1.9rem; letter-spacing: -0.5px; }
+header.hero p { margin: 0; opacity: 0.92; font-size: 0.98rem; }
+header.hero .badge {
+  display: inline-block;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.35);
+  border-radius: 999px;
+  padding: 6px 16px;
+  font-size: 0.82rem;
+  margin-top: 14px;
+}
+
+/* --- komisi box --- */
+.komisi {
+  background: var(--accent-soft);
+  border: 1px solid #ffc9dc;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 24px 0;
+}
+.komisi h2 { margin: 0 0 10px; font-size: 1.1rem; color: var(--accent); }
+.komisi table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+.komisi td { padding: 6px 0; border-bottom: 1px solid #ffd6e4; }
+.komisi tr:last-child td { border-bottom: none; }
+.komisi td:last-child { text-align: right; font-weight: 600; color: var(--accent); }
+.komisi .catatan { margin: 12px 0 0; font-size: 0.82rem; color: var(--muted); }
+
+/* --- filter --- */
+.filter {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin: 24px 0 18px;
+  align-items: center;
+}
+.filter button {
+  background: var(--card);
+  border: 1px solid var(--border);
+  color: var(--text);
+  border-radius: 999px;
+  padding: 8px 16px;
+  font-size: 0.86rem;
+  cursor: pointer;
+  font-family: inherit;
+}
+.filter button:hover { border-color: var(--accent); }
+.filter button.aktif {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff;
+}
+.filter .cari {
+  flex: 1;
+  min-width: 160px;
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-family: inherit;
+  background: var(--card);
+}
+.filter .cari:focus { outline: none; border-color: var(--accent); }
+
+/* --- grid produk --- */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+  gap: 18px;
+}
+
+.produk {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform .15s, box-shadow .15s;
+}
+.produk:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(214,51,108,0.12); }
+
+.produk .foto {
+  height: 190px;
+  background: linear-gradient(135deg, #ffeef4 0%, #f8e3ee 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+}
+.produk .isi { padding: 14px; display: flex; flex-direction: column; flex: 1; }
+.produk .tag {
+  display: inline-block;
+  background: var(--accent-soft);
+  color: var(--accent);
+  border-radius: 6px;
+  padding: 3px 9px;
+  font-size: 0.72rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+  align-self: flex-start;
+}
+.produk h3 { margin: 0 0 6px; font-size: 0.96rem; line-height: 1.4; }
+.produk .desc { margin: 0 0 12px; font-size: 0.82rem; color: var(--muted); flex: 1; }
+
+.harga-baris { display: flex; align-items: baseline; gap: 8px; margin-bottom: 10px; }
+.harga { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+.harga-cor { font-size: 0.82rem; color: var(--muted); text-decoration: line-through; }
+.disc { font-size: 0.72rem; background: #fff3cd; color: #856404; padding: 2px 7px; border-radius: 5px; }
+
+.beli {
+  display: block;
+  text-align: center;
+  background: var(--accent);
+  color: #fff;
+  text-decoration: none;
+  padding: 11px;
+  border-radius: 10px;
+  font-size: 0.88rem;
+  font-weight: 600;
+}
+.beli:hover { background: #c2255c; }
+
+.kosong {
+  text-align: center;
+  padding: 50px 20px;
+  color: var(--muted);
+  grid-column: 1 / -1;
+}
+
+footer {
+  margin-top: 46px;
+  padding-top: 22px;
+  border-top: 1px solid var(--border);
+  text-align: center;
+  color: var(--muted);
+  font-size: 0.84rem;
+}
+footer a { color: var(--accent); }

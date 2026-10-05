@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Koleksi Kecantikan &amp; Fashion — Rekomendasi</title>
+<meta name="description" content="Rekomendasi_products Kecantikan dan Fashion pilihan. Dapatkan komisi afiliasi hingga 10%.">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="hero">
+  <h1>Koleksi Kecantikan &amp; Fashion</h1>
+  <p>Rekomendasi produk yang dikurasi, siap BELI di Tokopedia</p>
+  <span class="badge">Afiliasi Tokopedia &middot; Komisi hingga 10%</span>
+</header>
+
+<div class="wrap">
+
+  <div class="komisi">
+    <h2> berapa komisi?</h2>
+    <table>
+      <tr><td>Kecantikan &amp; Fashion</td><td>10%</td></tr>
+      <tr><td>Makanan &amp; Minuman</td><td>7%</td></tr>
+      <tr><td>Aksesoris HP, Kesehatan, Office</td><td>5%</td></tr>
+      <tr><td>Buku &amp; Rumah Tangga</td><td>4%</td></tr>
+      <tr><td>Elektronik</td><td>1%</td></tr>
+    </table>
+    <p class="catatan">
+      Komisi maksimal Rp20.000 per kategori per penjualan. Produk habis stok
+      otomatis tidak menghasilkan komisi. Pembelian dan pembayaran berlangsung
+      di Tokopedia.
+    </p>
+  </div>
+
+  <div class="filter">
+    <button class="aktif" onclick="filter_kategori('semua', this)">Semua</button>
+    <button onclick="filter_kategori('skincare', this)">Skincare</button>
+    <button onclick="filter_kategori('makeup', this)">Makeup</button>
+    <button onclick="filter_kategori('fashion', this)">Fashion</button>
+    <input class="cari" type="search" placeholder="Cari produk..." oninput="cari(this.value)">
+  </div>
+
+  <div class="grid" id="grid"></div>
+
+  <footer>
+    <p>Link afiliasi Tokopedia. Pembelian terjadi di marketplace Tokopedia.</p>
+    <p style="margin-top:6px">
+      <a href="https://affiliate.tokopedia.com/" target="_blank" rel="noopener">Program Afiliasi Tokopedia</a>
+    </p>
+  </footer>
+</div>
+
+<script>
+// Data produk. Ganti link_afiliasi dengan link asli dari dashboard
+// affiliate Tokopedia. Format link: https://tokopedia.link/xxxxx
+const PRODUK = [
+  {
+    id: 1,
+    nama: "Serum Vitamin C 10%",
+    kategori: "skincare",
+    harga: 59000,
+    harga_cor: 85000,
+    deskripsi: "Serum pencerah dengan 10% vitamin C. Tekstur ringan, cepat meresap.",
+    emoji: "🧴",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 2,
+    nama: "Moisturizer Gel Hydrating",
+    kategori: "skincare",
+    harga: 45000,
+    harga_cor: 65000,
+    deskripsi: "Moisturizer dengan tekstur gel untuk kulit berminyak dan combination.",
+    emoji: "💧",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 3,
+    nama: "Sunscreen SPF 50 PA++++",
+    kategori: "skincare",
+    harga: 38000,
+    harga_cor: 52000,
+    deskripsi: "Perlindungan matahari tinggi tanpa white cast. Cocok semua jenis kulit.",
+    emoji: "☀️",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 4,
+    nama: "Lipstik Matte Liquid",
+    kategori: "makeup",
+    harga: 32000,
+    harga_cor: 45000,
+    deskripsi: "Pigment tinggi, tahan lama, tidak mudah luntur. 6 pilihan warna.",
+    emoji: "💄",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 5,
+    nama: "BB Cream Lightening SPF30",
+    kategori: "makeup",
+    harga: 55000,
+    harga_cor: 78000,
+    deskripsi: "Coverage ringan hingga sedang, hasil natural. TidakOXidasi.",
+    emoji: "💄",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 6,
+    nama: "Mascara Volume Waterproof",
+    kategori: "makeup",
+    harga: 35000,
+    harga_cor: null,
+    deskripsi: "Efek belokan volume, tahan air dan keringat. Tidak luntur seharian.",
+    emoji: "👁️",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 7,
+    nama: "Tas Kanvas Ransel Minimall",
+    kategori: "fashion",
+    harga: 89000,
+    harga_cor: 129000,
+    deskripsi: "Ransel kanvas dengan compartment laptop 15 inci. Warna netral.",
+    emoji: "🎒",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 8,
+    nama: "Hijab Voal Motif Celana",
+    kategori: "fashion",
+    harga: 45000,
+    harga_cor: 62000,
+    deskripsi: "Bahan voal premium, adem dan tidak mudah kusut. Motif eksklusif.",
+    emoji: "🧣",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  },
+  {
+    id: 9,
+    nama: "Kacamata Sunglasses UV400",
+    kategori: "fashion",
+    harga: 42000,
+    harga_cor: 68000,
+    deskripsi: "Lensa polarized UV400, bingkai ringan. Melindungi dari sinar matahari.",
+    emoji: "🕶️",
+    link_afiliasi: "https://tokopedia.link/GANTI-DENGAN-LINK-MILIKMU"
+  }
+];
+
+let kategori_aktif = 'semua';
+
+function rupiah(angka) {
+  return 'Rp' + angka.toLocaleString('id-ID');
+}
+
+function render() {
+  const cari = (document.querySelector('.cari').value || '').toLowerCase();
+  const grid = document.getElementById('grid');
+
+  const hasil = PRODUK.filter(p => {
+    const ok_kategori = kategori_aktif === 'semua' || p.kategori === kategori_aktif;
+    const ok_cari = !cari || p.nama.toLowerCase().includes(cari) || p.deskripsi.toLowerCase().includes(cari);
+    return ok_kategori && ok_cari;
+  });
+
+  if (hasil.length === 0) {
+    grid.innerHTML = '<div class="kosong">Tidak ada produk yang cocok.</div>';
+    return;
+  }
+
+  grid.innerHTML = hasil.map(p => {
+    const diskon = p.harga_cor ? Math.round((1 - p.harga / p.harga_cor) * 100) : 0;
+    return `
+    <div class="produk">
+      <div class="foto">${p.emoji}</div>
+      <div class="isi">
+        <span class="tag">${p.kategori}</span>
+        <h3>${p.nama}</h3>
+        <p class="desc">${p.deskripsi}</p>
+        <div class="harga-baris">
+          <span class="harga">${rupiah(p.harga)}</span>
+          ${p.harga_cor ? `<span class="harga-cor">${rupiah(p.harga_cor)}</span>` : ''}
+          ${diskon > 0 ? `<span class="disc">-${diskon}%</span>` : ''}
+        </div>
+        <a class="beli" href="${p.link_afiliasi}" target="_blank" rel="noopener nofollow sponsored">
+          Beli di Tokopedia
+        </a>
+      </div>
+    </div>`;
+  }).join('');
+}
+
+function filter_kategori(kategori, tombol) {
+  kategori_aktif = kategori;
+  document.querySelectorAll('.filter button').forEach(b => b.classList.remove('aktif'));
+  tombol.classList.add('aktif');
+  render();
+}
+
+function cari(kata) {
+  render();
+}
+
+render();
+</script>
+</body>
+</html>
